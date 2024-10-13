@@ -1,0 +1,17 @@
+# Welcome to Serverless!
+service: ecomm-backend
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    MONGO_URI : ${env:MONGO_URL}
+    JWT_TOKEN : ${env:JWT_TOKEN}
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+
