@@ -1,17 +1,27 @@
-# Welcome to Serverless!
 service: ecomm-backend
 frameworkVersion: "3"
+
+useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs18.x
   region: us-east-1
+  stage: dev
+  profile: KundanAWSProfile
   environment:
-    MONGO_URI : ${env:MONGO_URL}
-    JWT_TOKEN : ${env:JWT_TOKEN}
+    MONGO_URI: ${env:MONGO_URL}
+    JWT_TOKEN: ${env:JWT_TOKEN}
+
+plugins:
+  - serverless-offline
+  # - serverless-offline-watcher
 
 functions:
-  hello:
-    handler: handler.hello
+  signUpHandler:
+    handler: services/authHandlers/signUpHandler.signUpHandler # Use the correct path to the handler
     events:
-
+      - http:
+          path: auth/signUp
+          method: POST
+          cors: true
